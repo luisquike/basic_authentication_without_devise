@@ -1,0 +1,56 @@
+<!--#************************************************************************-->
+<!--#*                                 SaaS                                 *-->
+<!--#************************************************************************-->
+<!--#* Nombre de la Pagina: APPLICATION.                                    *-->
+<!--#* Descripción        : Vista Global del SaaS                           *-->
+<!--#*                                                                      *-->
+<!--#* Funcional          : Corporation S.A. de C.V.                        *-->
+<!--#* Programador        : Corporation S.A. de C.V.                        *-->
+<!--#* Fecha Creación     : 02 de Diciembre del 2013.                       *-->
+<!--#************************************************************************-->
+<!--#*                        LOG DE MODIFICACIONES                         *-->
+<!--#************************************************************************-->
+<!--#*                                                                      *-->
+<!--#************************************************************************-->
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+  	<!--#&===================================================================-->
+  	<!--#& HEAD.                                                             -->
+  	<!--#&===================================================================-->
+  	<head>
+     	<title><%= full_title(yield(:title)) %></title>
+  		<meta charset="utf-8">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      	<meta name="description" content="">
+      	<meta name="viewport" content="width=device-width, initial-scale=1">
+      
+  		<!--estilo compuesto de la app-->
+      	<%= stylesheet_link_tag 'application', media: 'all', "data-turbolinks-track" => true %>
+      	<!--javascript compuesto de la app-->
+    	<%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
+
+    	<!--Proteccion contra CSRF-->
+    	<%= csrf_meta_tags %>
+    	<%= render 'layouts/shim' %>
+  	</head>
+    <!--#&~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <!--#& PAGINA                                                            -->
+    <!--#&~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <body>
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
+
+        <%= render 'layouts/header' %>
+        <%= yield %>
+        <%= debug(params) if Rails.env.development? %>
+        <!--- %= render 'layouts/footer' %> -->
+        <!-- %= debug(params) if Rails.env.development? %> -->
+        <!-- %= render 'layouts/analytics' %> -->
+    </body>
+</html>
+

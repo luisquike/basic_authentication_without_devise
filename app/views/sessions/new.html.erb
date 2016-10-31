@@ -1,0 +1,56 @@
+<h1>Sessions#new</h1>
+<p>Find me in app/views/sessions/new.html.erb</p>
+
+<%= form_for(:session, url: login_path) do |f| %>
+
+	<% if !cookies[:remember_user_SaaS].nil? %>
+	  	<%= f.label :email %>
+	  	<%= f.email_field :email, class: 'form-control', placeholder: "#{@email}", disabled: "disabled" %>
+
+	  	<%= f.label :password %>
+	  	<%= f.password_field :password, class: 'form-control', placeholder: "*********", disabled: "disabled"%>
+	<% else %>
+	 	<%= f.label :email %>
+	  	<%= f.email_field :email, class: 'form-control', placeholder: "#{@email}" %>
+
+	  	<%= f.label :password %>
+	  	<%= f.password_field :password, class: 'form-control', placeholder: "Contraseña" %>
+	<% end %>
+  	<%= f.check_box :remmember, id: "delete_session", checked: @check %>
+  	<%= f.submit "Log in" %>
+<% end %>
+
+<p>New user? <%= link_to "Sign up now!", new_user_path %></p>
+
+<%if !cookies[:remember_user_SaaS].nil? %>
+	<script type="text/javascript">
+		$(document).on('change', "#delete_session", function(){
+	      if(this.checked == false){
+	      	$.ajax({
+		        type: 'POST',
+		        url:'sessions/not_remember_user',
+		        data:{ },
+		        dataType: "json",
+		        success: function(data){
+		          if(data == 0){
+				    $("#session_email").attr('placeholder',"");
+					$("#session_email").removeAttr('disabled');
+
+					$("#session_password").attr('placeholder',"");
+					$("#session_password").removeAttr('disabled');
+
+		          	$("form").append("<li>Datos olvidados con exito<li>");
+		          }
+		          if(data == 1){
+		          	$("form").append("<li>Error al olvidar datos de usuario<li>");
+		          }
+		        },
+		        error: function(xhr, ajaxOptions, thrownError){
+			        $("form").append("<li>Error al olvidar datos de usuario<li>");
+			    }
+		    });
+			
+	      }
+	    });
+	</script>
+<% end %>
